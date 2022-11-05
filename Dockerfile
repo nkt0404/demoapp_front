@@ -17,6 +17,17 @@ ENV HOME=/${WORKDIR} \
 #Dockerfile内で指定した命令を実行する
 WORKDIR ${HOME}
 
+# コンテナパッケージをインストール
+COPY package*.json ./
+RUN yarn install
+
+# コンテナにNuxtプロジェクトをコピー
+COPY . ./
+
+#本番環境にアプリを構築
+RUN yarn run build
+# ここまで
+
 #公開用ポート番号を指定
 #http://localhost:3000
 #EXPOSE ${CONTAINER_PORT}
